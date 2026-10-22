@@ -1,7 +1,11 @@
+import os
 import streamlit as st
 import pickle
 import numpy as np
 import pandas as pd
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent
 
 # ─── Page config ────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -196,13 +200,13 @@ hr { border-color: rgba(255,255,255,0.08) !important; }
 # ─── Load artifacts ──────────────────────────────────────────────────────────
 @st.cache_resource
 def load_artifacts():
-    with open("model.pkl", "rb") as f:
+    with open(BASE_DIR / "model.pkl", "rb") as f:
         model = pickle.load(f)
-    with open("scaler.pkl", "rb") as f:
+    with open(BASE_DIR / "scaler.pkl", "rb") as f:
         scaler = pickle.load(f)
-    with open("ohe_encoder.pkl", "rb") as f:
+    with open(BASE_DIR / "ohe_encoder.pkl", "rb") as f:
         ohe = pickle.load(f)
-    with open("feature_columns.pkl", "rb") as f:
+    with open(BASE_DIR / "feature_columns.pkl", "rb") as f:
         feature_cols = pickle.load(f)
     return model, scaler, ohe, feature_cols
 
